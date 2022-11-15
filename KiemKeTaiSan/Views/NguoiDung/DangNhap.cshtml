@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "DangNhap";
+    Layout = null;
+}
+<a href="#" data-toggle="modal" role="button" data-target="#modalSubscriptionForm" aria-expanded="false" aria-haspopup="true" style="color: white; text-decoration:none; font-size: 1.7rem;">
+    <i class="fa-solid fa-user"></i>
+    Tài khoản
+</a>
+<div class="modal fade" id="modalSubscriptionForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="wrapper" role="document">
+        <button type="button" class="close close__btn" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="logo">
+            <img src="~/fonts/img/tdmu-icon-ldpi.png" alt="">
+
+        </div>
+        <div class="text-center mt-4 name">
+            TDMU
+        </div>
+        @using (Html.BeginForm("Index", "TrangChu",FormMethod.Post))
+        {
+            @Html.ValidationSummary(true)
+            <form class="p-3 mt-3">
+
+                <div class="form-field d-flex align-items-center">
+                    <span class="far fa-user"></span>
+                    <input type="text" name="TenDN" id="TenDN">
+                </div>
+                <div class="form-field d-flex align-items-center">
+                    <span class="fas fa-key"></span>
+                    <input type="password" name="MatKhau" id="MatKhau">
+                </div>
+                <button class="btn mt-3">Đăng Nhập</button>
+            </form>
+            <div class="text-center fs-6" style="padding: 15px;">
+                <a href="#">Quên mật khẩu ?</a>
+            </div>
+            
+        }
+    </div>
+</div>

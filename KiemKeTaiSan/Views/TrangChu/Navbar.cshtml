@@ -1,0 +1,41 @@
+﻿
+<nav class="navbar navbar-expand-sm bg-blue navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">Trang Chủ</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav h4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Thiết bị</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Thiết bị 1</a></li>
+                        <li><a class="dropdown-item" href="#">Thiết bị 2</a></li>
+                        <li><a class="dropdown-item" href="#">Thiết bị 3</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Giới thiệu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Liên hệ</a>
+                </li>
+
+            </ul>
+        </div>
+        @Html.Action("DangNhap", "NguoiDung")
+    </div>
+</nav>
+<div style="position: relative">
+    <img src="~/fonts/img/img-kham-pha-tdmu.jpg" class="vw-100" style=" min-width: calc(100%); height: 450px; object-fit: cover; filter: brightness(70%); border: 5px solid transparent" />
+    <div style=" position: absolute; top: 40%; left: 35%; transform: translate(-50%, -50%); text-align: left; color:white;">
+        <div>
+            <h1 style="font-weight: 700;">Đại học Thủ Dầu Một</h1>
+            <h4>TDMU - Thu Dau Mot University</h4><hr />
+            <button type="button" class="btn" style="background-color: #e05a0e; font-weight: 600; color: white; ">Tham quan</button>
+        </div>
+
+    </div>
+</div>
+

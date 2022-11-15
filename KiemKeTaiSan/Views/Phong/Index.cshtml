@@ -1,0 +1,96 @@
+﻿
+
+<div class="col-md-4" style=" margin-top: 20px">
+    <div class="p-3 mb-2 text-white" style="background-color: #335273; font-size: 1.6rem">Báo hỏng thiết bị</div>
+    <figure class="figure">
+        <img src="~/fonts/img/Chuanmucketoanvetaisancodinh-min.png" class="figure-img img-fluid rounded" alt="...">
+
+    </figure>
+</div>
+<div class="col-md-8 p-3 mb-2 bg-light text-dark" style=" margin-top: 20px; border: 1px solid #e5e5e5; box-shadow: 1px 0px 6px 1px #aaa">
+    <div class="mb-3">
+        <label>Khu</label>
+        <select name="example" id="table_kvphong">
+            <option value="A"> A </option>
+            <option value="B"> B </option>
+            <option value="C"> C </option>
+            <option value="-"> Phòng khác </option>
+        </select>
+        <label style="padding-left: 30px;">Phòng</label>
+        <select name="example">
+            <option value="A"> E1-102 </option>
+            <option value="B"> E1-103 </option>
+            <option value="C"> E1-104 </option>
+            <option value="-"> Phòng khác </option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label> Thiết bị</label>
+        <select name="example">
+            <option value="A"> Máy tính </option>
+            <option value="B"> Máy lạnh </option>
+            <option value="C"> Bàn </option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Mô tả</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="6"></textarea>
+    </div>
+    <button type="button" class="btn" style="background-color: #0e7fe0; font-weight: 600; color: white; float:right">Gửi</button>
+</div>
+<script>
+
+    $(document).ready(function () {
+
+        var Table_P = $('#table_phong').DataTable({
+            "ordering": false,
+            responsive: true,
+            paging: true,
+        });
+
+
+        var Table_KVPhong = $('#table_kvphong').DataTable({
+            "ordering": false,
+            responsive: true,
+            paging: true,
+        });
+
+
+        var Table_LoaiPhong = $('#table_loaiphong').DataTable({
+            "ordering": false,
+            responsive: true,
+            paging: true,
+        });
+
+
+    });
+    function LoadData_KhuVucPhong() {
+        $("#table_kvphong tbody tr").remove();
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("Select_KhuVucPhong", "Phong")',
+            dataType: 'json',
+            contentType: 'application/json;charset=utf-8',
+            success: function (data) {
+                var items = '';
+                $.each(data.data, function (i, item) {
+                    var rows = "<tr>"
+                        + '<td><a href="#" class="text-body fw-bold">#' + item.MaKV + '</a></td>'
+                        + "<td>" + item.TenKV + "</td>"
+                        + "<td>" + item.GhiChu + "</td>"
+                        + "<td>" + ToJavaScriptDate(item.NgayCapNhat) + "</td>"
+                        + '<td class="table-action"><a onclick = "show_modal_edit(' + item.MaLP + ',"khuvucphong_edit");" href="javascript:void(0)" class="action-icon"> <i class="mdi mdi-pencil"></i></a>'
+                        + '<a href="javascript:void(0)" class="action-icon"> <i class="mdi mdi-delete"></i></a></td>'
+                        + "</tr>";
+                    $('#table_kvphong').append(rows);
+                });
+            },
+            error: function (ex) {
+                alert("Error_Load_Data");
+            }
+        });
+        return false;
+    }
+        LoadData_KhuVucPhong();
+
+</script>

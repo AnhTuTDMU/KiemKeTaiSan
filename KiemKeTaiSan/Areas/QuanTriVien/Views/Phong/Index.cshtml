@@ -1,0 +1,239 @@
+﻿@{
+    ViewBag.Title = "Quản lý phòng";
+    Layout = "~/Areas/QuanTriVien/Views/Shared/_LayoutQTV.cshtml";
+}
+
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item active"><a href="javascript: void(0);">Quản lý</a></li>
+                    <li class="breadcrumb-item ">Quản lý phòng</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <h4 class="header-title">Quản lý phòng</h4>
+                <p class="text-muted font-14">
+                    Quản lý các thông tin cơ bản của phòng, xem được các khu vực cũng như là dãy phòng có trên hệ thống của trường.
+                </p>
+                <ul class="nav nav-tabs nav-bordered mb-3">
+                    <li class="nav-item">
+                        <a href="#phong_view" data-bs-toggle="tab" aria-expanded="false" class="nav-link active">
+                            Phòng
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#khuvucphong_view" data-bs-toggle="tab" aria-expanded="true" class="nav-link">
+                            Khu vực phòng
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#loaiphong_view" data-bs-toggle="tab" aria-expanded="true" class="nav-link">
+                            Loại phòng
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane show active" id="phong_view">
+                        <div class="table-responsive-sm">
+                            <table id="table_phong" class="table dt-responsive nowrap w-100">
+                                <thead>
+                                    <tr>
+                                        <th class="table-light">Mã phòng</th>
+                                        <th class="table-light">Tên phòng</th>
+                                        <th class="table-light">Thuộc khu vực </th>
+                                        <th class="table-light">Loại phòng</th>
+                                        <th class="table-light">Ghi chú</th>
+                                        <th class="table-light">Ngày cập nhật cuối cùng</th>
+                                        <th class="table-light">Hành động</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="khuvucphong_view">
+                        <div class="table-responsive-sm">
+                            <table id="table_kvphong" class="table dt-responsive nowrap w-100">
+                                <thead>
+                                    <tr>
+                                        <th class="table-light">Mã khu vực phòng</th>
+                                        <th class="table-light">Tên khu vực phòng</th>
+                                        <th class="table-light">Ghi chú</th>
+                                        <th class="table-light">Ngày cập nhật cuối cùng</th>
+                                        <th class="table-light">Hành động</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                    <div class="tab-pane" id="loaiphong_view">
+                        <div class="table-responsive-sm">
+                            <table id="table_loaiphong" class="table dt-responsive nowrap w-100">
+                                <thead>
+                                    <tr>
+                                        <th class="table-light">Mã loại phòng</th>
+                                        <th class="table-light">Tên loại phòng</th>
+                                        <th class="table-light">Ghi chú</th>
+                                        <th class="table-light">Ngày cập nhật cuối cùng</th>
+                                        <th class="table-light">Hành động</th>
+                                    </tr>
+                                </thead>
+
+
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script>
+
+    $(document).ready(function () {
+
+        var Table_P = $('#table_phong').DataTable({
+            "ordering": false,
+            responsive: true,
+            paging: true,
+        });
+
+
+        var Table_KVPhong = $('#table_kvphong').DataTable({
+            "ordering": false,
+            responsive: true,
+            paging: true,
+        });
+
+
+        var Table_LoaiPhong = $('#table_loaiphong').DataTable({
+            "ordering": false,
+            responsive: true,
+            paging: true,
+        });
+
+
+    });
+
+function LoadData_LoaiPhong() {
+    $("#table_loaiphong tbody tr").remove();
+    $.ajax({
+        type: 'GET',
+        url: '@Url.Action("Select_LoaiPhong", "Phong")',
+        dataType: 'json',
+        contentType: 'application/json;charset=utf-8',
+        success: function (data) {
+            var items = '';
+            $.each(data.data, function (i, item) {
+                var rows = "<tr>"
+                    + '<td><a href="#" class="text-body fw-bold">#' + item.MaLP + '</a></td>'
+                    + "<td>" + item.TenLP + "</td>"
+                    + "<td>" + item.GhiChu + "</td>"
+                    + "<td>" + ToJavaScriptDate(item.NgayCapNhat) + "</td>"
+                    + '<td class="table-action"><a onclick = "show_modal_edit(' + item.MaLP +',"loaiphong_edit");" href="javascript:void(0)" class="action-icon"> <i class="mdi mdi-pencil"></i></a>'
+                    + '<a href="javascript:void(0)" class="action-icon"> <i class="mdi mdi-delete"></i></a></td>'
+                    + "</tr>";
+                $('#table_loaiphong').append(rows);
+            });
+        },
+        error: function (ex) {
+            alert("Error_Load_Data");
+        }
+    });
+    return false;
+}
+
+function LoadData_KhuVucPhong() {
+    $("#table_kvphong tbody tr").remove();
+    $.ajax({
+        type: 'GET',
+        url: '@Url.Action("Select_KhuVucPhong", "Phong")',
+        dataType: 'json',
+        contentType: 'application/json;charset=utf-8',
+        success: function (data) {
+            var items = '';
+            $.each(data.data, function (i, item) {
+                var rows = "<tr>"
+                    + '<td><a href="#" class="text-body fw-bold">#' + item.MaKV + '</a></td>'
+                    + "<td>" + item.TenKV + "</td>"
+                    + "<td>" + item.GhiChu + "</td>"
+                    + "<td>" + ToJavaScriptDate(item.NgayCapNhat) + "</td>"
+                    + '<td class="table-action"><a onclick = "show_modal_edit('+item.MaLP+',"khuvucphong_edit");" href="javascript:void(0)" class="action-icon"> <i class="mdi mdi-pencil"></i></a>'
+                    + '<a href="javascript:void(0)" class="action-icon"> <i class="mdi mdi-delete"></i></a></td>'
+                    + "</tr>";
+                $('#table_kvphong').append(rows);
+            });
+        },
+        error: function (ex) {
+            alert("Error_Load_Data");
+        }
+    });
+    return false;
+    }
+
+ function LoadData_Phong() {
+     $("#table_phong tbody tr").remove();
+    $.ajax({
+        type: 'GET',
+        url: '@Url.Action("Select_Phong", "Phong")',
+        dataType: 'json',
+        contentType: 'application/json;charset=utf-8',
+        success: function (data) {
+            var items = '';
+            $.each(data.data, function (i, item) {
+                var rows = "<tr>"
+                    + '<td><a href="#" class="text-body fw-bold">#' + item.MaPhong + '</a></td>'
+                    + "<td>" + item.TenPhong + "</td>"
+                    + "<td>" + item.TenKV + "</td>"
+                    + "<td>" + item.TenLP + "</td>"
+                    + "<td>" + item.GhiChu + "</td>"
+                    + "<td>" + ToJavaScriptDate(item.NgayCapNhat) + "</td>"
+                    + '<td class="table-action">'
+                    + '<a href="javascript:void(0)" class="action-icon"> <i class="mdi mdi-eye"></i></a>'
+                    + '<a onclick = "show_modal_edit(' + item.MaLP +', "phong_edit");" href = "javascript:void(0)" class="action-icon" > <i class="mdi mdi-pencil"></i></a > '
+                    + '<a href="javascript:void(0)" class="action-icon"> <i class="mdi mdi-delete"></i></a></td>'
+                    + "</tr>";
+                $('#table_phong').append(rows);
+            });
+        },
+        error: function (ex) {
+            alert("Error_Load_Data");
+        }
+    });
+    return false;
+}
+    LoadData_Phong();
+    LoadData_KhuVucPhong();
+    LoadData_LoaiPhong();
+
+
+</script>
