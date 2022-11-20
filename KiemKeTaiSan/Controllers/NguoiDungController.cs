@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace KiemKeTaiSan.Controllers
 {
@@ -29,31 +30,43 @@ namespace KiemKeTaiSan.Controllers
         [HttpPost]
         public ActionResult DangNhap(FormCollection collection)
         {
-            var sTenDN = collection["TenDN"];
+            var sTenDN = collection["TenDangNhap"];
             var sMatKhau = collection["MatKhau"];
             if (String.IsNullOrEmpty(sTenDN))
             {
-                ViewData["Err1"] = "Bạn chưa nhập tên đăng nhập";
+                ViewBag.ThongBao = "Bạn chưa nhập tên đăng nhập";
             }
             else if (String.IsNullOrEmpty(sMatKhau))
             {
-                ViewData["Err2"] = "Phải nhập mật khẩu";
+                ViewBag.ThongBao = "Phải nhập mật khẩu";
             }
             else
             {
-                NguoiDung kh = kkts.NguoiDungs.SingleOrDefault(n => n.TenDangNhap == sTenDN && n.MatKhau == GetMD5(sMatKhau));
+                NguoiDung kh = kkts.NguoiDungs.SingleOrDefault(n => n.TenDangNhap == sTenDN && n.MatKhau == sMatKhau);
                 if (kh != null)
                 {
-                    /*ViewBag.ThongBao = "Chúc mừng đăng nhập thành công";*/
-                    Session["QuanTriVien"] = kh;
-                    return RedirectToAction("Index","TrangChu");
+                    ViewBag.ThongBao = "Chúc mừng đăng nhập thành công";
+                    Session["NguoiDung"] = kh;
+                    return RedirectToAction("Index", "TrangChu");
                 }
                 else
                 {
                     ViewBag.ThongBao = "Tên đăng nhập hoặc mật khẩu không chính xác";
                 }
+
             }
             return View();
+        }
+        public ActionResult LoginLogout()
+        {
+            return PartialView("LoginLogoutPartial");
+        }
+        public ActionResult DangXuat()
+        {
+            FormsAuthentication.SignOut();
+            //Session.Abandon();
+            Session.Remove("TaiKhoan");
+            return RedirectToAction("Index", "TrangChu");
         }
         public static string GetMD5(string str)
         {

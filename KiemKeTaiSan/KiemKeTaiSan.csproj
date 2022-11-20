@@ -367,6 +367,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\index.css" />
     <Content Include="Content\login.css" />
+    <Content Include="Content\main.css" />
+    <Content Include="Content\util.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\img\7c519668-866b-4abe-8c6c-3ddd8440e7b7.png" />
@@ -472,6 +474,8 @@
     <Content Include="Views\Shared\_Layout_TrangChu.cshtml" />
     <Content Include="Views\NguoiDung\DangNhap.cshtml" />
     <Content Include="Views\Phong\Index.cshtml" />
+    <Content Include="Views\NguoiDung\LoginLogout.cshtml" />
+    <Content Include="Views\NguoiDung\DangXuat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

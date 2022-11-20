@@ -1,5 +1,5 @@
 ﻿
-<nav class="navbar navbar-expand-sm bg-blue navbar-dark">
+<nav class="navbar navbar-expand-sm bg-blue navbar-dark" style="margin: 0px;">
     <div class="container">
         <a class="navbar-brand" href="#">Trang Chủ</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
@@ -21,10 +21,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Liên hệ</a>
                 </li>
-
             </ul>
         </div>
-        @Html.Action("DangNhap", "NguoiDung")
+        <a href="@Url.Action("DangNhap","NguoiDung")" class="nav-link" style="text-decoration: none; color: white; font-size: 1.7rem;">
+            <i class="fa-solid fa-user" style="padding-right: 10px; font-size:2rem;"></i>Tài khoản
+        </a>
     </div>
 </nav>
 <div style="position: relative">

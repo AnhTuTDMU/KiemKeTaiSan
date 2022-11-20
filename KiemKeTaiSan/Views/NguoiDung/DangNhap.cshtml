@@ -1,44 +1,99 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "DangNhap";
     Layout = null;
+    <link href="~/Content/main.css" rel="stylesheet" />
+    <link href="~/Content/util.css" rel="stylesheet" />
 }
-<a href="#" data-toggle="modal" role="button" data-target="#modalSubscriptionForm" aria-expanded="false" aria-haspopup="true" style="color: white; text-decoration:none; font-size: 1.7rem;">
-    <i class="fa-solid fa-user"></i>
-    Tài khoản
-</a>
-<div class="modal fade" id="modalSubscriptionForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
-    <div class="wrapper" role="document">
-        <button type="button" class="close close__btn" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        <div class="logo">
-            <img src="~/fonts/img/tdmu-icon-ldpi.png" alt="">
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <div class="login100-form-title" style="background-image: url(../../fonts/img/img-kham-pha-tdmu.jpg);">
+                <span class="login100-form-title-1">
+                    Đăng Nhập
+                </span>
+            </div>
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary(true)
+                <div class="login100-form validate-form">
+                    <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
+                        <span class="label-input100">Email</span>
+                        <input class="input100" type="text" name="TenDangNhap" id="TenDangNhap" placeholder="Nhập tên đăng nhập">
+                        <span class="focus-input100"></span>
+                    </div>
 
-        </div>
-        <div class="text-center mt-4 name">
-            TDMU
-        </div>
-        @using (Html.BeginForm("Index", "TrangChu",FormMethod.Post))
-        {
-            @Html.ValidationSummary(true)
-            <form class="p-3 mt-3">
+                    <div class="wrap-input100 validate-input m-b-18" data-validate="Password is required">
+                        <span class="label-input100">Mật khẩu</span>
+                        <input class="input100" type="password" name="MatKhau" id="MatKhau" placeholder="Nhập mật khẩu">
+                        <span class="focus-input100"></span>
+                    </div>
 
+                    <div class="flex-sb-m w-full p-b-30">
+                        <div class="contact100-form-checkbox">
+                            <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+                            <label class="label-checkbox100" for="ckb1">
+                                Nhớ mật khẩu
+                            </label>
+                        </div>
+
+                        <div>
+                            <a href="#" class="txt1">
+                                Quên mật khẩu
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn">
+                            Đăng nhập
+                        </button>
+                    </div>
+                    <p style="font-size: 1.2rem; color: red; margin-top: 20px; border-bottom: 1px solid #ccc">@ViewBag.ThongBao</p>
+                </div>
+
+            }
+        </div>
+    </div>
+</div>
+@*<button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#myModal">Login</button>
+     Modal
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="wrapper " role="document">
+            <form action="#" method="post" class="p-3 mt-3">
+    <button type="button" class="close close__btn" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="logo">
+                    <img src="~/fonts/img/tdmu-icon-ldpi.png" alt="">
+
+                </div>
+                <div class="text-center mt-4 name">
+                    TDMU
+                </div>
                 <div class="form-field d-flex align-items-center">
                     <span class="far fa-user"></span>
-                    <input type="text" name="TenDN" id="TenDN">
+                    <input type="text" name="TenDangNhap" id="TenDangNhap">
                 </div>
                 <div class="form-field d-flex align-items-center">
                     <span class="fas fa-key"></span>
                     <input type="password" name="MatKhau" id="MatKhau">
                 </div>
                 <button class="btn mt-3">Đăng Nhập</button>
+
+                <div class="text-center fs-6" style="padding: 15px;">
+                    <a href="#">Quên mật khẩu ?</a>
+                </div>
             </form>
-            <div class="text-center fs-6" style="padding: 15px;">
-                <a href="#">Quên mật khẩu ?</a>
-            </div>
-            
-        }
+        </div>
     </div>
-</div>
+
+
+    <script>
+        $(document).ready(function () {
+            $("#myModal").modal({
+                backdrop: 'static',
+            });
+        });
+    </script>
+*@
+

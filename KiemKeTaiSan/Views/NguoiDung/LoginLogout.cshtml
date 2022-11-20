@@ -1,0 +1,28 @@
+﻿@using KiemKeTaiSan.Models
+@{
+    NguoiDung kh = (NguoiDung)Session["TaiKhoan"];
+}
+@if (Session["TaiKhoan"] == null) //Giao diện Login
+{
+    <li>
+        <a href="~/User/DangNhap?id=1">
+            <span class="glyphicon glyphicon-log-in"></span> Đăng nhập
+        </a>
+    </li>
+
+}else 
+{
+<li>
+    <a href="#">
+        <span class="glyphicon glyphicon-user"></span> Xin
+        chào: @kh.HoVaTen
+    </a>
+</li>
+
+<li>
+    <a href="@Url.Action("DangXuat","NguoiDung")">
+        <span class="glyphicon glyphicon-log-out"></span> Đăng xuất
+    </a>
+</li>
+
+}
