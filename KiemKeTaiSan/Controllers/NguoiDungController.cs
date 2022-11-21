@@ -32,6 +32,7 @@ namespace KiemKeTaiSan.Controllers
         {
             var sTenDN = collection["TenDangNhap"];
             var sMatKhau = collection["MatKhau"];
+          
             if (String.IsNullOrEmpty(sTenDN))
             {
                 ViewBag.ThongBao = "Bạn chưa nhập tên đăng nhập";
@@ -65,7 +66,7 @@ namespace KiemKeTaiSan.Controllers
         {
             FormsAuthentication.SignOut();
             //Session.Abandon();
-            Session.Remove("TaiKhoan");
+            Session.Remove("NguoiDung");
             return RedirectToAction("Index", "TrangChu");
         }
         public static string GetMD5(string str)

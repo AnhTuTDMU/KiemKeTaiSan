@@ -1,8 +1,8 @@
 ﻿@using KiemKeTaiSan.Models
 @{
-    NguoiDung kh = (NguoiDung)Session["TaiKhoan"];
+    NguoiDung kh = (NguoiDung)Session["NguoiDung"];
 }
-@if (Session["TaiKhoan"] == null) //Giao diện Login
+@if (Session["NguoiDung"] == null) //Giao diện Login
 {
     <li>
         <a href="~/User/DangNhap?id=1">
@@ -10,7 +10,8 @@
         </a>
     </li>
 
-}else 
+}
+else 
 {
 <li>
     <a href="#">
